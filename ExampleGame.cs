@@ -8,6 +8,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private Tilemap tileMap;
 
     public Game1()
     {
@@ -19,13 +20,14 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-
+        tileMap = new Tilemap("map.txt");
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        tileMap.LoadContent(Content);
 
         // TODO: use this.Content to load your game content here
     }
@@ -43,6 +45,9 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
+        _spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation(23, 23, 0));
+        tileMap.Draw(gameTime, _spriteBatch);
+        _spriteBatch.End();
 
         // TODO: Add your drawing code here
 
